@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+    <html>
+        <head>
+            <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+            <style>
+                body {
+                    min-width: 500px;
+                }
+
+                .materialize-textarea {
+                    white-space: pre-wrap;
+                }
+            </style>
+        </head>
+
+        <body>
+            
+            <div class="container">
+                <h4>Live PGP configuration</h4>
+                <div class="row">
+                    <form>
+                        <div class="s12 col input-field">
+                            <label for="private-key-textarea">Paste your private key here:</label>
+                            <textarea id="private-key-textarea" class="materialize-textarea"></textarea>
+                        </div>
+                        <div class="s12 col input-field">
+                            <input type="password" name="" id="private-key-password">
+                            <label for="private-key-password">Type your private key password here (if any):</label>
+                        </div>
+                        <div class="s12 col input-field">
+                            <a class="waves-effect waves-light btn" id="save-button">Save</a>
+                        </div>
+                    </form>
+                </div>
+                <div id="message-container" hidden>
+                    <div class="card-panel teal">
+                        <span class="white-text">
+                            <h6 id="message-text"></h6>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            
+            <script src="/vendor/materialize.min.js"></script>
+            <script src="options.js"></script>
+        </body>
+    </html>
