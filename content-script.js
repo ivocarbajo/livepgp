@@ -4,7 +4,11 @@ var privkeyPassword;
 
 //Get private key and credentials
 chrome.storage.sync.get(['privateKey', 'privateKeyPassword'], result => {
-    privkey = result.privateKey.join("\n");
+    if (typeof result.privateKey !== 'undefined'){
+        privkey = result.privateKey.join("\n");
+    } else {
+        console.log("Live PGP: No PGP private key present");
+    }
     privkeyPassword = result.privateKeyPassword;
 });
 
@@ -27,16 +31,20 @@ async function decrypt(message){
 setInterval(() => {
     document.querySelectorAll('span').forEach((span) => {
         if (livepgp.checkDecryptable(span)){
-            decrypt(livepgp.parseEncryptedMessage(span.innerHTML)).then(text => {
-                span.innerHTML = text.data;
-                span.setAttribute("decrypted", true);
-                span.append(livepgp.createBadge("Decrypted"));
-            }).catch(err => {
-                span.setAttribute("decrypted", false);
-                if (err.message == "Error decrypting message: Session key decryption failed.") {
-                    span.append(livepgp.createBadge("No private key"));
-                }
-            });
+            if(typeof privkey !== 'undefined'){
+                decrypt(livepgp.parseEncryptedMessage(span.innerHTML)).then(text => {
+                    span.innerHTML = text.data;
+                    span.setAttribute("decrypted", true);
+                    span.append(livepgp.createBadge("Decrypted"));
+                }).catch(err => {
+                    span.setAttribute("decrypted", false);
+                    if (err.message == "Error decrypting message: Session key decryption failed.") {
+                        span.append(livepgp.createBadge("No private key"));
+                    }
+                });
+            } else {
+                span.append(livepgp.createBadge("No pgp keys imported"));
+            }
         }
     });
 }, 5000);

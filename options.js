@@ -22,5 +22,9 @@ chrome.storage.sync.get(['privateKey'], function(result) {
         document.querySelector('label[for="private-key-textarea"]').setAttribute("class", "active");
         document.getElementById("private-key-textarea").setAttribute("style", "height: 591px;");
     }
-    document.getElementById('private-key-textarea').innerText = result.privateKey.join('\n');
+    if (typeof result.privateKey !== 'undefined'){
+        document.getElementById('private-key-textarea').innerText = result.privateKey.join('\n');
+    } else {
+        console.log("Live PGP: No PGP private key present");
+    }
 });

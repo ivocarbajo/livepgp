@@ -5,12 +5,7 @@ var livepgp = {
      */
     createBadge: message => {
         var livePgpBadge = document.createElement("span");
-        livePgpBadge.style.display = "block";
-        livePgpBadge.style.width = "fit-content";
-        livePgpBadge.style.marginTop = "5px";
-        livePgpBadge.style.padding = "5px";
-        livePgpBadge.style.backgroundColor = "#999";
-        livePgpBadge.style.borderRadius = "3px";
+        livePgpBadge.classList.add("live-pgp-badge");
         livePgpBadge.innerText = "Live PGP: " + message;
     
         return livePgpBadge;
@@ -35,6 +30,6 @@ var livepgp = {
     checkDecryptable: span => {
         return !span.hasAttribute("decrypted") && 
             span.innerHTML.includes("-----BEGIN PGP MESSAGE-----") && 
-            span.innerHTML.includes("-----BEGIN PGP MESSAGE-----");
+            span.innerHTML.includes("-----END PGP MESSAGE-----");
     }
 }

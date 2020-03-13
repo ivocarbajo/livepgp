@@ -2,7 +2,7 @@
   "manifest_version": 2,
   "name": "Live PGP",
   "version": "1.0",
-  "description": "Live pgp decrypts PGP encrypted messages on the fly, import your private key and watch encrypted messages sent to you get decrypted instantly!",
+  "description": "Decrypt PGP encrypted messages on the web automatically",
   "browser_action": {
     "default_title": "Open options",
     "default_popup": "options.html"
@@ -18,9 +18,12 @@
         "livepgp.js",
         "content-script.js"
       ],
+      "css": [
+        "style.css"
+      ],
       "run_at": "document_end"
     }
   ],
   "options_page": "options.html",
-  "permissions": ["storage"]
+  "permissions": ["storage", "activeTab"]
 }
