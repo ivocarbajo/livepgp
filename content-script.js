@@ -9,7 +9,7 @@ chrome.storage.sync.get(['privateKey', 'privateKeyPassword'], result => {
     } else {
         console.log("Live PGP: No PGP private key present");
     }
-    privkeyPassword = result.privateKeyPassword;
+    privkeyPassword = result.privateKeyPassword == '' ? null: result.privateKeyPassword;
 });
 
 /**
@@ -24,7 +24,9 @@ async function decrypt(message){
             throw new Error("Bad PGP key");
     }
     const keyObject = keyObjects.keys[0];
-    await keyObject.decrypt(privkeyPassword);
+    if (typeof privkeyPassword !== 'undefined' && privkeyPassword != null &&  privkeyPassword != ''){
+        await keyObject.decrypt(privkeyPassword);
+    }
 
     const options = {
         message: await openpgp.message.readArmored(message),
