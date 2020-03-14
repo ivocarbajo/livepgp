@@ -6,15 +6,24 @@ function message(messageText) {
     }, 5000);
 }
 
-document.getElementById("save-button").addEventListener("click", (e) => {
-    e.preventDefault();
+function saveKeys (){
     chrome.storage.sync.set({
-            privateKeyPassword: document.getElementById("private-key-password").value,
-            privateKey: document.getElementById("private-key-textarea").value.split('\n')
-        }, function() {
+        privateKeyPassword: document.getElementById("private-key-password").value,
+        privateKey: document.getElementById("private-key-textarea").value.split('\n')
+    }, function() {
         message("PGP Private key updated");
         console.log(document.getElementById("private-key-textarea").value);
     });
+}
+
+document.getElementById("save-button").addEventListener("click", (e) => {
+    e.preventDefault();
+    saveKeys();
+});
+
+document.getElementById("pgp-key-form").addEventListener("submit", (e) => {
+    e.preventDefault();
+    saveKeys();
 });
 
 chrome.storage.sync.get(['privateKey'], function(result) {

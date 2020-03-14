@@ -17,7 +17,13 @@ chrome.storage.sync.get(['privateKey', 'privateKeyPassword'], result => {
  * @param {String} message 
  */
 async function decrypt(message){
-    const keyObject = (await openpgp.key.readArmored(privkey)).keys[0];
+    const keyObjects = (await openpgp.key.readArmored(privkey));
+    if (typeof keyObjects.err !== 'undefined' && 
+        keyObjects.err !== null && 
+        keyObjects.err[0].message == 'Misformed armored text') {
+            throw new Error("Bad PGP key");
+    }
+    const keyObject = keyObjects.keys[0];
     await keyObject.decrypt(privkeyPassword);
 
     const options = {
@@ -40,9 +46,15 @@ setInterval(() => {
                     span.setAttribute("decrypted", false);
                     if (err.message == "Error decrypting message: Session key decryption failed.") {
                         span.append(livepgp.createBadge("No private key"));
+                    } else if (err.message == "Bad PGP key"){
+                        console.log("Please use a valid private key, if your private key has " + 
+                            "a \"Version: \" header, it's most likely not compatible.");
+
+                        span.append(livepgp.createBadge("Private key is not valid, check console for more information."));
                     }
                 });
             } else {
+                span.setAttribute("decrypted", false);
                 span.append(livepgp.createBadge("No pgp keys imported"));
             }
         }
