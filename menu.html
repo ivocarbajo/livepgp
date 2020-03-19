@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+    <html>
+        <head>
+            <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+            <style>
+                body {
+                    min-width: 500px;
+                }
+
+                .materialize-textarea {
+                    white-space: pre-wrap;
+                }
+            </style>
+        </head>
+
+        <body>
+            <nav>
+                <div class="nav-wrapper blue lighten-4">
+                    <ul class="left">
+                        <li class="active"><a href="menu.html">Public keys</a></li>
+                        <li><a href="options.html">Private key</a></li>
+                    </ul>
+                </div>
+            </nav>
+            <div class="">
+                <ul class="collapsible" style="height: 90vh; width: 100vw; margin:0px; box-shadow: none;">
+                    <li class="active">
+                        <div class="collapsible-header"><i class="material-icons">vpn_key</i>Select public keys</div>
+                        <div class="collapsible-body">
+                            <form id="use-public-key-form">
+                                <div id="select-pub-keys">
+                                    
+                                </div>
+                                <span class="blue-text text-lighten-3">
+                                    Note: To encrypt a message, select the text you want to encrypt and press CTRL + SHIFT + E, 
+                                    then paste the encrypted text anywhere, it's in your clipboard!
+                                </span>
+                                <button class="btn waves-effect waves-light">Submit</button>
+                            </form>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="collapsible-header"><i class="material-icons">save_alt</i>Import a public key</div>
+                        <div class="collapsible-body">
+                            <form id="import-public-key-form">
+                                <div class="input-field">
+                                    <input type="text" id="public-key-nickname-ifield">
+                                    <label for="public-key-nickname-ifield">Public key nickname</label>
+                                </div>
+                                
+                                <div class="input-field">
+                                    <textarea id="public-key-ifield" class="materialize-textarea"></textarea>
+                                    <label for="public-key-ifield">Public key</label>
+                                </div>
+                                <p>
+                                    <span class="blue-text text-lighten-3">
+                                        Note: At the moment you can only import one public key at a time, importing more than one key will
+                                        result in only one key being imported, or none at all. This also applies to ASCII armored
+                                        keys bundled up in one single key block, only one key from the block will be imported.
+                                    </span>
+                                </p>
+                                <button class="btn waves-effect waves-light" type="submit">Submit</button>
+                            </form>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            
+            <script src="/vendor/materialize.min.js"></script>
+            <script src="menu.js"></script>
+        </body>
+    </html>

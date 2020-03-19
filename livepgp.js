@@ -30,6 +30,7 @@ var livepgp = {
     checkDecryptable: span => {
         return !span.hasAttribute("decrypted") && 
             span.innerHTML.includes("-----BEGIN PGP MESSAGE-----") && 
-            span.innerHTML.includes("-----END PGP MESSAGE-----");
+            span.innerHTML.includes("-----END PGP MESSAGE-----") &&
+            span.getAttribute("data-text") != true;
     }
 }

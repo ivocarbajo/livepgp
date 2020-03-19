@@ -3,7 +3,7 @@ var privkey;
 var privkeyPassword;
 
 //Get private key and credentials
-chrome.storage.sync.get(['privateKey', 'privateKeyPassword'], result => {
+chrome.storage.local.get(['privateKey', 'privateKeyPassword'], result => {
     if (typeof result.privateKey !== 'undefined'){
         privkey = result.privateKey.join("\n");
     } else {

@@ -1,17 +1,9 @@
-function message(messageText) {
-    document.getElementById("message-text").innerText = messageText;
-    document.getElementById("message-container").removeAttribute("hidden");
-    setTimeout(() => {
-        document.getElementById("message-container").setAttribute("hidden", '');
-    }, 5000);
-}
-
 function saveKeys (){
-    chrome.storage.sync.set({
+    chrome.storage.local.set({
         privateKeyPassword: document.getElementById("private-key-password").value,
         privateKey: document.getElementById("private-key-textarea").value.split('\n')
     }, function() {
-        message("PGP Private key updated");
+        M.toast({html: 'Private key set!'})
         console.log(document.getElementById("private-key-textarea").value);
     });
 }
@@ -26,7 +18,7 @@ document.getElementById("pgp-key-form").addEventListener("submit", (e) => {
     saveKeys();
 });
 
-chrome.storage.sync.get(['privateKey'], function(result) {
+chrome.storage.local.get(['privateKey'], function(result) {
     if (result != '' || typeof result != undefined) {
         document.querySelector('label[for="private-key-textarea"]').setAttribute("class", "active");
         document.getElementById("private-key-textarea").setAttribute("style", "height: 591px;");
@@ -36,4 +28,6 @@ chrome.storage.sync.get(['privateKey'], function(result) {
     } else {
         console.log("Live PGP: No PGP private key present");
     }
+
+    M.textareaAutoResize(document.getElementById("private-key-textarea"));
 });

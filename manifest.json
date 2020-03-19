@@ -4,8 +4,8 @@
   "version": "1.0",
   "description": "Decrypt PGP encrypted messages on the web automatically",
   "browser_action": {
-    "default_title": "Open options",
-    "default_popup": "options.html"
+    "default_title": "Open menu",
+    "default_popup": "menu.html"
   },
   "content_scripts": [
     {
@@ -15,15 +15,18 @@
       ],
       "js": [
         "vendor/openpgp.min.js",
+        "vendor/materialize.min.js",
         "livepgp.js",
-        "content-script.js"
+        "decrypt.js",
+        "encrypt.js"
       ],
       "css": [
-        "style.css"
+        "style.css",
+        "vendor/toaststyle.css"
       ],
       "run_at": "document_end"
     }
   ],
   "options_page": "options.html",
-  "permissions": ["storage", "activeTab"]
+  "permissions": ["storage", "activeTab", "clipboardWrite", "unlimitedStorage"]
 }
